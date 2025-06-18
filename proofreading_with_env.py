@@ -4,6 +4,22 @@
 .envファイルを使用した安全なAPIキー設定版
 """
 
+import subprocess
+import sys
+
+def install_package(package):
+    """パッケージがインストールされていない場合に自動インストール"""
+    try:
+        __import__(package)
+    except ImportError:
+        print(f"{package}パッケージをインストールしています...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"{package}のインストールが完了しました。")
+
+# 必要なパッケージを自動インストール
+install_package("python-dotenv")
+install_package("google-genai")
+
 import os
 from dotenv import load_dotenv
 from google import genai
@@ -24,8 +40,8 @@ if not GEMINI_API_KEY:
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 変数定義
-file_path = "input_text.txt"  # 入力ファイルのパス
-output_file_path = "processed_text.txt"  # 出力ファイルのパス
+file_path = "data/input/LLM2024_day7_s2t.txt"  # 入力ファイルのパス
+output_file_path = "data/output/processed_text_llm2024_day7.txt"  # 出力ファイルのパス
 prompt = "このファイルの書きおこし文を自然な日本語に修正してください。"
 
 # ファイルを読み込む

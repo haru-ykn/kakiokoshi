@@ -4,6 +4,21 @@
 ローカル環境用に修正版
 """
 
+import subprocess
+import sys
+
+def install_package(package):
+    """パッケージがインストールされていない場合に自動インストール"""
+    try:
+        __import__(package)
+    except ImportError:
+        print(f"{package}パッケージをインストールしています...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"{package}のインストールが完了しました。")
+
+# 必要なパッケージを自動インストール
+install_package("google-genai")
+
 import os
 from google import genai
 from google.genai import types
