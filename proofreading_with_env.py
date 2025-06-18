@@ -1,30 +1,29 @@
 # -*- coding: utf-8 -*-
 """
 このコードは動画から文字起こしをするコードです。
-ローカル環境用に修正版
+.envファイルを使用した安全なAPIキー設定版
 """
 
 import os
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-# 方法1: 環境変数からAPIキーを取得（推奨）
+# .envファイルから環境変数を読み込み
+load_dotenv()
+
+# APIキーを環境変数から取得
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
-# 方法2: 直接設定する場合（セキュリティ上推奨されません）
-# GEMINI_API_KEY = "your-api-key-here"
-
 if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY環境変数が設定されていません。"
-                    "以下のコマンドで設定してください：\n"
-                    "Windows: set GEMINI_API_KEY=your-api-key\n"
-                    "Mac/Linux: export GEMINI_API_KEY=your-api-key")
+    raise ValueError("GEMINI_API_KEYが設定されていません。"
+                    ".envファイルに以下を追加してください：\n"
+                    "GEMINI_API_KEY=your-api-key-here")
 
 # APIキーのモデルへの設定
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 変数定義
-# ファイルのPATH（ローカル環境用に修正）
 file_path = "input_text.txt"  # 入力ファイルのパス
 output_file_path = "processed_text.txt"  # 出力ファイルのパス
 prompt = "このファイルの書きおこし文を自然な日本語に修正してください。"
@@ -41,4 +40,4 @@ print(response.text)
 
 # responseの内容をファイルに保存
 with open(output_file_path, "w", encoding="utf-8") as f:
-    f.write(response.text)
+    f.write(response.text) 

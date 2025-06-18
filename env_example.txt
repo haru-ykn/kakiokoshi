@@ -1,0 +1,3 @@
+# Gemini API設定
+# このファイルを.envにコピーして、実際のAPIキーを設定してください
+GEMINI_API_KEY=your-gemini-api-key-here 
