@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# Data folder (exclude all data files)
+data/
+data/*
+
 # Python
 __pycache__/
 *.py[cod]
