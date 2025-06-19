@@ -41,7 +41,7 @@ if not GEMINI_API_KEY:
 # APIキーのモデルへの設定
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-def process_text_in_chunks(input_file_path, output_file_path, chunk_size=):#入力＋出力トークンが8192までなので、10000文字くらいまで
+def process_text_in_chunks(input_file_path, output_file_path, chunk_size=6000):#入力＋出力トークンが8192までなので、10000文字くらいまで
     """
     大きなテキストファイルをチャンクに分割して処理
     """
