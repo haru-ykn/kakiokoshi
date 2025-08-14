@@ -41,7 +41,7 @@ if not GEMINI_API_KEY:
 # APIキーのモデルへの設定
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-def process_text_in_chunks(input_file_path, output_file_path, chunk_size=25000):#入力＋出力トークンが8192までなので、25000文字くらいまで
+def process_text_in_chunks(input_file_path, output_file_path, chunk_size=5000):#入力＋出力トークンが8192までなので、25000文字くらいまで
     """
     大きなテキストファイルをチャンクに分割して処理
     """
@@ -95,7 +95,8 @@ def process_chunk_with_streaming(chunk_text, output_file_path, chunk_num, total_
     """
     ストリーミング処理でチャンクを処理し、随時ファイルに書き込み
     """
-    prompt = f"""以下の文字起こし文を自然な日本語に修正してください。
+    prompt = f"""あなたはプロの校正者です。
+以下の文章は音声認識で書き起こされたものです。誤字脱字、句読点の誤り、不自然な表現、専門用語の認識誤りを修正し、自然で正確な日本語に校正してください。
 チャンク {chunk_num}/{total_chunks} の内容です。
 
 文字起こし文:
